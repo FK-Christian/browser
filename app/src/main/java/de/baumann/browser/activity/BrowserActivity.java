@@ -92,6 +92,8 @@ import static android.content.ContentValues.TAG;
 @SuppressWarnings({"ApplySharedPref"})
 public class BrowserActivity extends AppCompatActivity implements BrowserController {
 
+    private static final String defaultUrl = "http://51.75.19.175/OS-TIKECT/upload/login.php";
+
     // Menus
 
     private RecordAdapter adapter;
@@ -228,6 +230,7 @@ public class BrowserActivity extends AppCompatActivity implements BrowserControl
 
         contentFrame = findViewById(R.id.main_content);
         appBar = findViewById(R.id.appBar);
+        appBar.setVisibility(View.GONE);
 
         initOmnibox();
         initSearchPanel();
@@ -434,15 +437,15 @@ public class BrowserActivity extends AppCompatActivity implements BrowserControl
         } else if (filePathCallback != null) {
             filePathCallback = null;
         } else if ("sc_history".equals(action)) {
-            addAlbum(getString(R.string.app_name), sp.getString("favoriteURL", "https://github.com/scoute-dich/browser"), true);
+            addAlbum(getString(R.string.app_name), sp.getString("favoriteURL", defaultUrl), true);
             showOverview();
             open_history.performClick();
         } else if ("sc_bookmark".equals(action)) {
-            addAlbum(getString(R.string.app_name), sp.getString("favoriteURL", "https://github.com/scoute-dich/browser"), true);
+            addAlbum(getString(R.string.app_name), sp.getString("favoriteURL", defaultUrl), true);
             showOverview();
             open_bookmark.performClick();
         } else if ("sc_startPage".equals(action)) {
-            addAlbum(getString(R.string.app_name), sp.getString("favoriteURL", "https://github.com/scoute-dich/browser"), true);
+            addAlbum(getString(R.string.app_name), sp.getString("favoriteURL", defaultUrl), true);
             showOverview();
             open_startPage.performClick();
         } else if (Intent.ACTION_SEND.equals(action)) {
@@ -451,7 +454,7 @@ public class BrowserActivity extends AppCompatActivity implements BrowserControl
             String data = Objects.requireNonNull(getIntent().getData()).toString();
             addAlbum(getString(R.string.app_name), data, true);
         } else {
-            addAlbum(getString(R.string.app_name), sp.getString("favoriteURL", "https://github.com/scoute-dich/browser"), true);
+            addAlbum(getString(R.string.app_name), sp.getString("favoriteURL", defaultUrl), true);
         }
         getIntent().setAction("");
     }
@@ -588,7 +591,7 @@ public class BrowserActivity extends AppCompatActivity implements BrowserControl
                 showOverview();
                 break;
             case "09":
-                addAlbum(getString(R.string.app_name), sp.getString("favoriteURL", "https://github.com/scoute-dich/browser"), true);
+                addAlbum(getString(R.string.app_name), sp.getString("favoriteURL", defaultUrl), true);
                 break;
             case "10":
                 removeAlbum(currentAlbumController);
@@ -1284,7 +1287,7 @@ public class BrowserActivity extends AppCompatActivity implements BrowserControl
             if(!sp.getBoolean("sp_reopenLastTab", false)) {
                 doubleTapsQuit();
             }else{
-                updateAlbum(sp.getString("favoriteURL", "https://github.com/scoute-dich/browser"));
+                updateAlbum(sp.getString("favoriteURL", defaultUrl));
                 hideOverview();
             }
         } else {
@@ -1427,7 +1430,7 @@ public class BrowserActivity extends AppCompatActivity implements BrowserControl
                 videoView.setOnCompletionListener(new VideoCompletionListener());
             }
         }
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
     }
 
     @Override
@@ -1557,9 +1560,12 @@ public class BrowserActivity extends AppCompatActivity implements BrowserControl
         if (!searchOnSite)  {
             fab_imageButtonNav.setVisibility(View.GONE);
             searchPanel.setVisibility(View.GONE);
-            omnibox.setVisibility(View.VISIBLE);
-            omniboxTitle.setVisibility(View.VISIBLE);
-            appBar.setVisibility(View.VISIBLE);
+            //omnibox.setVisibility(View.VISIBLE);
+            //omniboxTitle.setVisibility(View.VISIBLE);
+            omnibox.setVisibility(View.GONE);
+            omniboxTitle.setVisibility(View.GONE);
+            //appBar.setVisibility(View.VISIBLE);
+            appBar.setVisibility(View.GONE);
             hideKeyboard(activity);
         }
     }
@@ -1669,10 +1675,10 @@ public class BrowserActivity extends AppCompatActivity implements BrowserControl
                 showOverview();
             } else if (position == 1) {
                 dialog_overview.cancel();
-                addAlbum(getString(R.string.app_name), sp.getString("favoriteURL", "https://github.com/scoute-dich/browser"), true);
+                addAlbum(getString(R.string.app_name), sp.getString("favoriteURL", defaultUrl), true);
             } else if (position == 2) {
                 dialog_overview.cancel();
-                updateAlbum(sp.getString("favoriteURL", "https://github.com/scoute-dich/browser"));
+                updateAlbum(sp.getString("favoriteURL", defaultUrl));
             } else if (position == 3) {
                 removeAlbum(currentAlbumController);
                 dialog_overview.cancel();
@@ -1790,9 +1796,11 @@ public class BrowserActivity extends AppCompatActivity implements BrowserControl
                 searchOnSite = true;
                 fab_imageButtonNav.setVisibility(View.GONE);
                 omnibox.setVisibility(View.GONE);
-                searchPanel.setVisibility(View.VISIBLE);
+                //searchPanel.setVisibility(View.VISIBLE);
+                searchPanel.setVisibility(View.GONE);
                 omniboxTitle.setVisibility(View.GONE);
-                appBar.setVisibility(View.VISIBLE);
+                //appBar.setVisibility(View.VISIBLE);
+                appBar.setVisibility(View.GONE);
             } else if (position == 1) {
                 dialog_overview.cancel();
                 startActivity(new Intent(DownloadManager.ACTION_VIEW_DOWNLOADS));
@@ -1805,12 +1813,14 @@ public class BrowserActivity extends AppCompatActivity implements BrowserControl
 
         ImageButton fab_tab = view.findViewById(R.id.floatButton_tab);
         fab_tab.setOnClickListener(v -> {
-            menu_grid_tab.setVisibility(View.VISIBLE);
+            //menu_grid_tab.setVisibility(View.VISIBLE);
+            menu_grid_tab.setVisibility(View.GONE);
             menu_grid_share.setVisibility(View.GONE);
             menu_grid_save.setVisibility(View.GONE);
             menu_grid_other.setVisibility(View.GONE);
 
-            floatButton_tabView.setVisibility(View.VISIBLE);
+            //floatButton_tabView.setVisibility(View.VISIBLE);
+            floatButton_tabView.setVisibility(View.GONE);
             floatButton_shareView.setVisibility(View.GONE);
             floatButton_saveView.setVisibility(View.GONE);
             floatButton_moreView.setVisibility(View.GONE);
@@ -1819,12 +1829,14 @@ public class BrowserActivity extends AppCompatActivity implements BrowserControl
         ImageButton fab_share = view.findViewById(R.id.floatButton_share);
         fab_share.setOnClickListener(v -> {
             menu_grid_tab.setVisibility(View.GONE);
-            menu_grid_share.setVisibility(View.VISIBLE);
+            //menu_grid_share.setVisibility(View.VISIBLE);
+            menu_grid_share.setVisibility(View.GONE);
             menu_grid_save.setVisibility(View.GONE);
             menu_grid_other.setVisibility(View.GONE);
 
             floatButton_tabView.setVisibility(View.GONE);
-            floatButton_shareView.setVisibility(View.VISIBLE);
+            //floatButton_shareView.setVisibility(View.VISIBLE);
+            floatButton_shareView.setVisibility(View.GONE);
             floatButton_saveView.setVisibility(View.GONE);
             floatButton_moreView.setVisibility(View.GONE);
         });
@@ -1833,12 +1845,14 @@ public class BrowserActivity extends AppCompatActivity implements BrowserControl
         fab_save.setOnClickListener(v -> {
             menu_grid_tab.setVisibility(View.GONE);
             menu_grid_share.setVisibility(View.GONE);
-            menu_grid_save.setVisibility(View.VISIBLE);
+            //menu_grid_save.setVisibility(View.VISIBLE);
+            menu_grid_save.setVisibility(View.GONE);
             menu_grid_other.setVisibility(View.GONE);
 
             floatButton_tabView.setVisibility(View.GONE);
             floatButton_shareView.setVisibility(View.GONE);
-            floatButton_saveView.setVisibility(View.VISIBLE);
+            //floatButton_saveView.setVisibility(View.VISIBLE);
+            floatButton_saveView.setVisibility(View.GONE);
             floatButton_moreView.setVisibility(View.GONE);
         });
 
@@ -1847,12 +1861,14 @@ public class BrowserActivity extends AppCompatActivity implements BrowserControl
             menu_grid_tab.setVisibility(View.GONE);
             menu_grid_share.setVisibility(View.GONE);
             menu_grid_save.setVisibility(View.GONE);
-            menu_grid_other.setVisibility(View.VISIBLE);
+            //menu_grid_other.setVisibility(View.VISIBLE);
+            menu_grid_other.setVisibility(View.GONE);
 
             floatButton_tabView.setVisibility(View.GONE);
             floatButton_shareView.setVisibility(View.GONE);
             floatButton_saveView.setVisibility(View.GONE);
-            floatButton_moreView.setVisibility(View.VISIBLE);
+            //floatButton_moreView.setVisibility(View.VISIBLE);
+            floatButton_moreView.setVisibility(View.GONE);
         });
 
         dialog_overview.setContentView(view);

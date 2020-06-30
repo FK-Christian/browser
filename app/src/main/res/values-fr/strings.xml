@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- App -->
-    <string name="app_name">Navigateur FOSS</string>
+    <string name="app_name">OSTICKET-UFIPAY</string>
     <string name="app_ok">OK</string>
     <string name="app_cancel">Annuler</string>
     <string name="list_empty">Liste vide</string>
